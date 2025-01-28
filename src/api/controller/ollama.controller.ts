@@ -1,0 +1,3 @@
+const getTags = () => {};
+
+export { getTags };
