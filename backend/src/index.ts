@@ -6,9 +6,6 @@ import passport from 'passport';
 import routerV1 from './api/route/v1';
 import { errorConverter, errorHandler } from './middleware/error.middleware';
 import { ApiError } from './utils/ApiError';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 const port = process.env.PORT || 3000;
 const app = express();
