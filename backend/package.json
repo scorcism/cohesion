@@ -10,8 +10,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"src/**/*.ts\"",
-    "migration:push": "drizzle-kit  --config=drizzle.config.ts",
-    "migration:generate": "drizzle-kit --config=drizzle.config.ts"
+    "migration:push": "drizzle-kit push --config=drizzle.config.ts",
+    "migration:generate": "drizzle-kit generate --config=drizzle.config.ts"
   },
   "keywords": [],
   "author": "scor32k<abhishek@scor32k.com>",
