@@ -16,16 +16,7 @@ export const conversationSchema = z.object({
     conversationMetadata: conversationMetadataSchema,
 });
 
-const getConversationSchema = z.object({
-    token: z.string(),
-});
-
-const getMessagesSchema = z.object({
-    convId: z.string(),
-});
 
 export const convsScma = {
     createConversation: conversationSchema,
-    getConversationSchema,
-    getMessagesSchema,
 };

@@ -12,26 +12,10 @@ const getTags = async (): Promise<CustomResponse> => {
     } catch (error) {
         return {
             message: 'Erorr while get tags',
-            success: true,
+            success: false,
             error: JSON.stringify(error),
         };
     }
 };
 
-// any as types issue: https://github.com/ollama/ollama-js/issues/135
-const chat = async (model: string, messages: Message[]): Promise<any> => {
-    try {
-        const response = await ollama.chat({
-            model: model,
-            messages: messages,
-            stream: true,
-        });
-
-        return response;
-    } catch (error) {
-        console.log({ error });
-        return {};
-    }
-};
-
-export const ollamaService = { getTags, chat };
+export const ollamaService = { getTags };
