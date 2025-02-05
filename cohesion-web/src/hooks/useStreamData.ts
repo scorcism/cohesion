@@ -8,7 +8,6 @@ import { toast } from "sonner";
 interface StreamDataProps {
   selectedModel: string;
   selectedConversation: string | null;
-  input: string;
   messages: any[];
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
   setConversations: React.Dispatch<React.SetStateAction<Conversation[]>>;
@@ -18,14 +17,15 @@ interface StreamDataProps {
 export const useStreamData = ({
   selectedModel,
   selectedConversation,
-  input,
   messages,
   setMessages,
   setConversations,
   setSelectedConversation,
 }: StreamDataProps) => {
   const [isSending, setIsSending] = useState(false);
+  const [isReceaving, setIsReceaving] = useState(false);
   const { user } = useApp();
+  const [input, setInput] = useState("");
 
   const handleNewConversation = async () => {
     const user_message = [
@@ -173,7 +173,7 @@ export const useStreamData = ({
 
         const chunk = decoder.decode(value, { stream: true });
         const messages = chunk.split("\n").filter(Boolean);
-
+  
         for (const message of messages) {
           if (!message.startsWith("data: ")) continue;
 
@@ -233,6 +233,7 @@ export const useStreamData = ({
         handleNewConversation();
       }
     } catch (error) {
+      toast.error("Error while sending message, check console for full error ");
       console.error("Error sending message:", error);
     } finally {
       setIsSending(false);
@@ -242,5 +243,9 @@ export const useStreamData = ({
   return {
     sendMessage,
     isSending,
+    input,
+    setInput,
+    isReceaving,
+    setIsReceaving,
   };
 };

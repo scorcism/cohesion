@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useApp } from "@/context/context/AppContext";
+import { useConversation } from "@/context/context/ConversationContext";
 import { apiService } from "@/services/api.service";
 import { LoginType, RegisterType } from "@/types/common";
 import { config } from "@/utils/config";
@@ -20,6 +21,7 @@ import { toast } from "sonner";
 const AuthModal = () => {
 
   const { showLoginModal, setShowLoginModal, setUser } = useApp()
+  const {setMessages} = useConversation()
 
   const [isLoading, setIsLoading] = useState(false);
   const [userCredLogin, setUserCredLogin] = useState<LoginType>({
@@ -45,22 +47,22 @@ const AuthModal = () => {
     setIsLoading(true);
     try {
       const response = await apiService.login(userCredLogin.email, userCredLogin.password)
-      console.log({ response })
       if (response.status) {
         const _data = response.data.data
-        console.log({_data})
         Cookies.set(config.AUTH_TOKEN, _data.token)
         Cookies.set(config.AUTH_EMAIL, _data.email)
         setUser({
           token: _data.token,
           email: _data.email
         })
+        setMessages([])
         setShowLoginModal(false)
         toast.success("Login successfull🍰")
       } else {
         toast.error(response.message.message)
       }
     } catch (error) {
+      toast.error("Error while registering user, check console for full context")
       console.log({ error })
     } finally {
       setIsLoading(false);
@@ -72,7 +74,6 @@ const AuthModal = () => {
     setIsLoading(true);
     try {
       const response = await apiService.register(userCredRegister.name, userCredRegister.email, userCredRegister.password)
-      console.log({ response })
       if (response.status) {
         toast.success("Registration complete, please login");
         setTimeout(() => {
@@ -82,6 +83,7 @@ const AuthModal = () => {
         toast.error(response.message.message)
       }
     } catch (error) {
+      toast.error("Error while registering user, check console for full context")
       console.log({ error })
     } finally {
       setIsLoading(false)
