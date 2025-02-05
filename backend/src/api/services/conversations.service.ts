@@ -34,7 +34,7 @@ const createNewConversation = async (
                 saveMessage(lastMessage.role, lastMessage.content, model, id),
             ]);
         }
-        response.write(`metadata: ${JSON.stringify(conversationMetadata)}`);
+        if(userId) response.write(`metadata: ${JSON.stringify(conversationMetadata)}`);
         await streamChatResponse(response, model, messages, conversationMetadata.id, userId);
     } catch (error) {
         console.error('Error while creating new conversation:', error);
@@ -63,7 +63,7 @@ const streamChatResponse = async (
         for await (const chunk of response) {
             aiResponse += chunk.message.content;
             res.write(`data: ${JSON.stringify(chunk)}\n\n`);
-        }
+        }   
 
         res.write('data: [DONE]\n\n');
         res.end();
