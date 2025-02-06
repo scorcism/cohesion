@@ -47,14 +47,21 @@ cd backend
 pnpm install
 ```
 
-4. **Set up the database:**
+4. **Environments**
+
+```bash
+cp .env.example .env
+```
+Update it with your evironment values
+
+5. **Set up the database:**
 
 ```bash
 pnpm run migration:push
 pnpm run migration:generate
 ```
 
-5. **Run the backend in development mode:**
+6. **Run the backend in development mode:**
 
 ```bash
 pnpm start:dev
@@ -62,19 +69,26 @@ pnpm start:dev
 
 #### Frontend Setup
 
-6. **Navigate to the frontend directory:**
+7. **Navigate to the frontend directory:**
 
 ```bash
 cd cohesion-web
 ```
 
-7. **Install dependencies for both frontend & backend:**
+8. **Install dependencies for both frontend & backend:**
 
 ```bash
 pnpm install
 ```
+9. **Environments**
 
-8. **Run the frontend in development mode:**
+```bash
+cp .env.example .env
+```
+
+Update it with your evironment values
+
+10. **Run the frontend in development mode:**
 
 ```bash
 pnpm dev
